@@ -4,18 +4,18 @@ using namespace std;
 
 #define max_nodos 100
 // Topological sort
-int numero_nodos , numero_vertices , grado_entrada[max_nodos];
+int numero_nodos , numero_aristas , grado_entrada[max_nodos];
 vector < vector < int > > grafo; // Grafo con lista de adyacencia
 
 int main()
 {
   int origen , llegada , voy;
-  while( scanf("%d %d", &numero_nodos , &numero_vertices ) , numero_nodos || numero_vertices )
+  while( scanf("%d %d", &numero_nodos , &numero_aristas ) , numero_nodos || numero_aristas )
   {
     queue < int > kahn;
     grafo.assign( numero_nodos , vector < int >() );
     memset( grado_entrada , 0 , sizeof grado_entrada );
-    for( int i = 0 ; i < numero_vertices ; ++i )
+    for( int i = 0 ; i < numero_aristas ; ++i )
     {
       scanf("%d %d", &origen , &llegada );
       ++grado_entrada[llegada];

@@ -28,7 +28,7 @@ void articulation_points( int from )
       articulation_points(to);
       if( root_dfs == from ) ++children;
       dfs_low[from] = min( dfs_low[from] , dfs_low[to] );
-      if( dfs_low[to] >= dfs_num[from] && parent[from] != -1 )
+      if( dfs_num[from] <= dfs_low[to] && parent[from] != -1 )
         ap[from] = true;
     }
     else
@@ -38,8 +38,8 @@ void articulation_points( int from )
 
 int main()
 {
-  int num_nodos , num_vertices , origen , destino ;
-  while( scanf("%d %d", &num_nodos , &num_vertices ) , num_nodos )
+  int num_nodos , num_aristas , origen , destino ;
+  while( scanf("%d %d", &num_nodos , &num_aristas ) , num_nodos )
   {
     grafo.assign( num_nodos , vector < int > () );
     visited.reset();
@@ -47,7 +47,7 @@ int main()
     memset( parent , -1 , sizeof parent );
     memset( dfs_low , 0 , sizeof dfs_low );
     memset( dfs_num , 0 , sizeof dfs_num );
-    for( int i = 0 ; i < num_vertices ; ++i )
+    for( int i = 0 ; i < num_aristas ; ++i )
     {
       scanf("%d %d", &origen , &destino );
       grafo[origen].push_back(destino);
@@ -57,13 +57,15 @@ int main()
     for( int i = 0 ; i < num_nodos ; ++i )
       if( !visited[i] )
       {
+        cout << i << endl;
         root_dfs = i;
         children = 0;
         articulation_points(i);
         if( children > 1 )
           ap[i] = true;
       }
-  for( int i = 0 ; i < MAX_NUMERO_NODOS ; ++i ) if( ap[i] )printf("Un punto de articulacion es %d\n", i );
+  cout << "Done\n";
+  for( int i = 0 ; i < num_nodos ; ++i ) if( ap[i] )printf("Un punto de articulacion es %d\n", i );
   }
   return 0;
 }
