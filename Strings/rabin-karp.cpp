@@ -71,7 +71,7 @@ int main()
     if( index == -1 )
       puts( "Pattern not found" );
     else
-      printf("Patter found at index %d\n", index );
+      printf("Pattern found at index %d\n", index );
   }
   return 0;
 }
