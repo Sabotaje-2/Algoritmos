@@ -26,8 +26,8 @@ void articulation_points( int from )
     {
       parent[to] = from;
       articulation_points(to);
-      if( root_dfs == from ) ++children;
       dfs_low[from] = min( dfs_low[from] , dfs_low[to] );
+      if( root_dfs == from ) ++children;
       if( dfs_num[from] <= dfs_low[to] && parent[from] != -1 )
         ap[from] = true;
     }
@@ -57,14 +57,12 @@ int main()
     for( int i = 0 ; i < num_nodos ; ++i )
       if( !visited[i] )
       {
-        cout << i << endl;
         root_dfs = i;
         children = 0;
         articulation_points(i);
         if( children > 1 )
           ap[i] = true;
       }
-  cout << "Done\n";
   for( int i = 0 ; i < num_nodos ; ++i ) if( ap[i] )printf("Un punto de articulacion es %d\n", i );
   }
   return 0;
