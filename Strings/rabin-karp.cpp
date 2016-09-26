@@ -7,7 +7,6 @@ typedef unsigned long long ull;
 
 const ull PRIME = 3ULL;
 const ull MOD = 1e9+7ULL;
-bool existe;
 char pattern[MAX_CADENA] , original_text[MAX_CADENA];
 int tam_pattern , tam_text;
 ull modular_inverse;
@@ -37,7 +36,7 @@ bool compare( int p )
 int rabin_karp( void )
 {
   ull hash_pattern , prime_power , hash_text ;
-  hash_pattern = hash_text = existe = false;
+  hash_pattern = hash_text = false;
   tam_pattern = strlen( pattern );
   tam_text = strlen( original_text );
   prime_power = 1;
