@@ -7,8 +7,6 @@ typedef unsigned long long ull;
 
 const ull PRIME = 3ULL;
 const ull MOD = 1e9+7ULL;
-char pattern[MAX_CADENA] , original_text[MAX_CADENA];
-int tam_pattern , tam_text;
 ull modular_inverse;
 
 ull fastPow( ull base , ull exponente ) // Calcular x^y en log(y)
