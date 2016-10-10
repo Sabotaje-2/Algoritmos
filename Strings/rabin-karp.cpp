@@ -8,6 +8,7 @@ typedef unsigned long long ull;
 const ull PRIME = 3ULL;
 const ull MOD = 1e9+7ULL;
 ull modular_inverse;
+int tam_pattern , tam_text;
 
 ull fastPow( ull base , ull exponente ) // Calcular x^y en log(y)
 {
@@ -25,7 +26,6 @@ ull fastPow( ull base , ull exponente ) // Calcular x^y en log(y)
 
 bool compare( char *original_text , char * pattern , int p )
 {
-  int tam_pattern = strlen( pattern );
     for( int i = 0 ; i < tam_pattern ; ++i )
       if( pattern[i] != original_text[i+p] ) return false;
     return true;
@@ -36,7 +36,6 @@ int rabin_karp( char *original_text , char *pattern )
 {
   ull hash_pattern , prime_power , hash_text ;
   hash_pattern = hash_text = false;
-  int tam_pattern = strlen( pattern ) , tam_text = strlen( original_text );
   tam_pattern = strlen( pattern );
   tam_text = strlen( original_text );
   prime_power = 1;
