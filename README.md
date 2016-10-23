@@ -1,1 +1,1 @@
-# Carpeta para guardar algoritmos que llevamos a competencias
+# Repositorio para guardar algoritmos que llevamos a competencias
