@@ -6,7 +6,7 @@ using namespace std;
 vector < vector < int > > sparse_table;
 
 // Build sparse table using array arr, O( nlog(n) )
-void build_sparse( vector < int > arr )
+void build_sparse( vector < int > &arr )
 {
   int columns = floor( log2( arr.size() ) ) + 1;
   sparse_table.assign( arr.size() , vector < int > ( columns , - 2 ) );
