@@ -1,0 +1,133 @@
+#include <iostream>
+#include <cstdio>
+#include <cstring>
+#include <vector>
+
+using namespace std;
+#define INF (1<<25)
+typedef pair < int , int > ii;
+
+struct st{
+  std::vector<ii> tree;
+  std::vector<int> lazyTree;
+  int tam;
+  st( vector < int > &arr )
+  {
+    tam = arr.size();
+    tree.assign( 4 * arr.size() , ii(0,0));
+    lazyTree.assign( 4 * arr.size() , 0 );
+    build(0 , tam - 1 , 0 , arr);
+  }
+
+  void build( int low , int high , int pos , vector < int > &arr )
+  {
+    if( low == high )
+    {
+      tree[pos] = ii( arr[low] , arr[low] );
+      return;
+    }
+    int mid = ( low + high ) >> 1;
+    int left = ( pos << 1 ) | 1;
+    int right = left + 1;
+    build( low , mid , left , arr );
+    build( mid + 1 , high , right , arr );
+    tree[pos].first = max( tree[left].first , tree[right].first );
+    tree[pos].second = min( tree[left].second , tree[right].second );
+  }
+
+  ii query_lazy( int low , int high , int &qlow , int &qhigh , int pos )
+  {
+    // cout << low << " " << high << " " << lazyTree[ pos ] << endl;
+    int mid = ( low + high ) >> 1;
+    int left = ( pos << 1 ) | 1;
+    int right = left + 1;
+    if( lazyTree[ pos ] != 0 )
+    {
+            if( low == high ){
+              tree[ pos ].second = (tree[ pos ].first += lazyTree[ pos ]);
+            }
+            else
+            {
+              tree[ pos ].first += lazyTree[ pos ];
+              tree[ pos ].second += lazyTree[ pos ];
+              lazyTree[ left ] += lazyTree[ pos ];
+              lazyTree[ right ] += lazyTree[ pos ];
+            }
+            // cout << low << " " << high << " " << lazyTree[ pos ] << " " << tree[ pos ] .first << " " << tree[ pos ].second << endl;
+            lazyTree[ pos ] = 0;
+    }
+    if( high < qlow || qhigh < low  )
+      return ii(-INF,INF);
+    if( low >= qlow && high <= qhigh ){
+      // cout << "retorne " << tree[ pos ].first << " " << tree[ pos ].second << endl;
+      return tree[ pos ];
+    }
+    ii a,b,res;
+    a = query_lazy( low , mid , qlow , qhigh , left );
+    b = query_lazy( mid +1  , high , qlow , qhigh , right );
+    tree[pos].first = max( tree[left].first , tree[right].first );
+    tree[pos].second = min( tree[left].second , tree[right].second );
+    res.first = max(a.first,b.first);
+    res.second = min(a.second,b.second);
+    return res;
+  }
+
+  void update_lazy( int low , int high , int &qlow , int &qhigh , int pos ,  const int& can )
+  {
+
+    // cout << low << " " << high << " " << qlow << " " << qhigh  << " " << can << endl;
+    int mid = ( low + high ) >> 1;
+    int left = ( pos << 1 ) | 1;
+    int right = left + 1;
+    if( lazyTree[ pos ] != 0 )
+    {
+            if( low == high )
+              tree[ pos ].second = (tree[ pos ].first += lazyTree[ pos ]);
+            else
+            {
+              tree[ pos ].first += lazyTree[ pos ];
+              tree[ pos ].second += lazyTree[ pos ];
+              lazyTree[ left ] += lazyTree[ pos ];
+              lazyTree[ right ] += lazyTree[ pos ];
+            }
+            // cout << low << " " << high << " " << lazyTree[ pos ] << " " << tree[ pos ] .first << " " << tree[ pos ].second << endl;
+            lazyTree[ pos ] = 0;
+    }
+    if( high < qlow || qhigh < low  )
+      return ;
+    if( low >= qlow && high <= qhigh ) {
+      // cout << "propague " << endl;
+       tree[ pos ].first += can;
+       tree[ pos ].second += can;
+       if( low != high )
+       {
+         lazyTree[ left ] += can;
+         lazyTree[ right ] += can;
+      }
+      lazyTree[ pos ] = 0;
+
+    }
+    else if( low != high )
+    {
+
+    update_lazy( low , mid , qlow , qhigh , left , can );
+    update_lazy( mid +1  , high , qlow , qhigh , right ,can);
+    tree[pos].first = max( tree[left].first , tree[right].first );
+    tree[pos].second = min( tree[left].second , tree[right].second );
+    }
+  }
+  ii query( int a , int b )
+  {
+    return query_lazy(0,tam-1,a,b,0);
+  }
+  void update( int a, int b , int c)
+  {
+    update_lazy( 0 , tam-1 , a , b , 0 , c);
+  }
+};
+
+int main()
+{
+
+  return 0;
+}
