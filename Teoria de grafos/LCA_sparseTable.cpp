@@ -7,7 +7,7 @@ using namespace std;
 vector < vector < int > > tree;
 int p[MAX_N]; // El padre inmediato de cada nodo
 int h[MAX_N]; // La latura de cada nodo
-int ssize[MAX_N]; // El tamano del subarbol, sirve para hld
+int ssize[MAX_N]; // El tamano del subarbol
 int fo[MAX_N]; // Indice de la primer ocurrencia de cada nodo en ocurrences
 vector < int > ocurrences;
 
@@ -40,7 +40,7 @@ void build_lca(vector < int > &arr) // O(nlog(n))
         for(int i = 0 ; i < arr.size() && i + (1 << j) - 1 < arr.size() ; ++i)
         {
             st_lca[i][j] = st_lca[i][j-1];
-            if(h[ st_lca[i + (1 << (j - 1))][j-1] ] < h[ st_lca[i][j] ])
+            if(h[st_lca[i + (1 << (j - 1))][j-1]] < h[st_lca[i][j]])
                 st_lca[i][j] = st_lca[i + (1 << (j - 1))][j-1];
         }
 }
@@ -59,12 +59,6 @@ int lca_query(int i , int j) // O(1)
 int query(int u , int v)
 {
     return lca_query(fo[u] , fo[v]);
-}
-
-void addEdge(int u , int v)
-{
-    tree[u].push_back(v);
-    tree[v].push_back(u);
 }
 
 int main() // O(nlog(n) preprocess , O(1) query)
