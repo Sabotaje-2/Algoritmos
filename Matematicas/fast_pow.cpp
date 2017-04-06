@@ -2,26 +2,20 @@
 
 using namespace std;
 
-typedef unsigned long long ull;
-
-ull MOD;
-
-ull fastPow( ull base , ull exponente ) // Calcular x^y en log(y)
-{
-  ull res = base , llevo = 1;
-  int i = 0;
-  while( ( 1LL << i ) <= exponente )
-  {
-    if( ( exponente & ( 1LL << i ) ) != 0 )
-      llevo = ( llevo * res ) % MOD;
-    res = res * res % MOD;
-    ++i;
-  }
-  return llevo;
+int fast_pow(int base, int exp, int MOD) {
+    int ans = 1ULL, power = base;
+    while(exp) {
+        if(exp & 1)
+            ans = (1ULL * ans * power) % MOD;
+        power = (1ULL * power * power) % MOD;
+        exp >>= 1;
+    }
+    return ans;
 }
 
 int main()
 {
-  MOD = 1e9 + 7;
+  cout << 4900 - fast_pow(10, 20, 1e9 + 7) << endl; // 0
   return 0;
 }
+
