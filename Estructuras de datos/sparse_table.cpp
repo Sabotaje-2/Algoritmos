@@ -1,37 +1,16 @@
-#include <bits/stdc++.h>
-
-using namespace std;
-
-// RMQ Sparse table
-vector < vector < int > > sparse_table;
-
-// Build sparse table using array arr, O( nlog(n) )
-void build_sparse( vector < int > &arr )
-{
-  int columns = floor( log2( arr.size() ) ) + 1;
-  sparse_table.assign( arr.size() , vector < int > ( columns , - 2 ) );
-  for( int i = 0 ; i < sparse_table.size() ; ++i )  sparse_table[i][0] = i;
-  for( int j = 1 ; j < columns ; ++j )
-    for( int i = 0 ; i + ( 1 << j ) <= sparse_table.size() ; ++i )
-    {
-      sparse_table[i][j] = sparse_table[i][j-1];
-      if( arr[ sparse_table[ i + ( 1 << ( j - 1 ) ) ][j-1] ] < arr[ sparse_table[i][j] ] )
-        sparse_table[i][j] = sparse_table[ i + ( 1 << ( j - 1 ) ) ][j-1];
+struct st {
+    vector < vector < int > > table;
+    st(vector < int >& arr) {
+        int columns = 1 + floor(log2(arr.size()));// C++11
+        table.assign(arr.size(), vector < int > (columns , - 2));
+        foi(i, 0, table.size())  table[i][0] = arr[i];
+        foi(j, 1, columns)
+            for(int i = 0 ; i + (1 << j) <= table.size() ; ++i)
+              table[i][j] = max(table[i][j-1], table[i + (1 << (j - 1))][j-1]);
     }
-}
-
-// Make queries on sparse table from i to j, inclusive , O(1)
-// Use only once you build sparse_table
-int query( vector < int > &arr , int i , int j )
-{
-  int len = j - i + 1;
-  int k = floor( log2(len) );
-  int min1 = sparse_table[i][k];
-  int min2 = sparse_table[i + len - ( 1 << k )][k];
-  return min( arr[min1] , arr[min2] );
-}
-
-int main()
-{
-  return 0;
-}
+    int query(int i, int j) {
+        int len = j - i + 1;
+        int k = floor(log2(len));
+        int max1 = table[i][k], max2 = table[i + len - (1 << k)][k];
+        return max(max1, max2);
+    }};
