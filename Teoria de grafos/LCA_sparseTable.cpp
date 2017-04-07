@@ -1,7 +1,7 @@
 vector < vector < int > > tree;
 vector < int > ocurrences;
 int p[MAX_N]; // El padre inmediato de cada nodo
-int h[MAX_N]; // La latura de cada nodo, MAX_N = Maximo numero de nodos
+int h[MAX_N]; // La altura de cada nodo, MAX_N = Maximo numero de nodos
 int fo[MAX_N]; // Indice de la primer ocurrencia de cada nodo en ocurrences
 
 void dfs(int u , int alt = 0) {
