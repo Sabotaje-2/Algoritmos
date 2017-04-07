@@ -1,7 +1,3 @@
-#include <bits/stdc++.h>
-
-using namespace std;
-
 int fast_pow(int base, int exp, int MOD) {
     int ans = 1ULL, power = base;
     while(exp) {
@@ -12,10 +8,3 @@ int fast_pow(int base, int exp, int MOD) {
     }
     return ans;
 }
-
-int main()
-{
-  cout << 4900 - fast_pow(10, 20, 1e9 + 7) << endl; // 0
-  return 0;
-}
-
