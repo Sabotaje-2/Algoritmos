@@ -1,22 +1,13 @@
-#include <bits/stdc++.h>
-
-using namespace std;
-
-typedef pair < int , int > ii;
-#define INF 1e8
-
 struct st {
     int tam;
     vector < ii > tree;
     vector < int > lazy;
-
     st(int n) {
         tam = n;
         tree.assign(tam << 2, ii(0,0));
         lazy.assign(tam << 2, 0);
         // build(0, tam - 1, 0, ...);
     }
-
     void build(int low, int high, int pos, vector < int >& arr) {
         if(low == high) {
             tree[pos].first = tree[pos].second = arr[low];
@@ -30,7 +21,6 @@ struct st {
         tree[pos].first = max(tree[left].first, tree[right].first);
         tree[pos].second = min(tree[left].second, tree[right].second);
     }
-
     ii lazy_query(int low, int high, int pos, int &qlow, int &qhigh) {
         int mid = (low + high) >> 1;
         int left = (pos << 1) | 1;
@@ -52,12 +42,9 @@ struct st {
         ii r = lazy_query(mid + 1, high, right, qlow, qhigh);
         return ii(max(l.first, r.first), min(l.second, r.second));
     }
-
     ii query(int i, int j) {
         return lazy_query(0, tam - 1, 0, i, j);
     }
-
-
     void lazy_update(int low, int high, int pos, int &qlow, int &qhigh, int &cant) {
         int mid = (low + high) >> 1;
         int left = (pos << 1) | 1;
@@ -86,13 +73,6 @@ struct st {
         tree[pos].first = max(tree[left].first, tree[right].first);
         tree[pos].second = min(tree[left].second, tree[right].second);
     }
-
     void update(int i, int j, int x) {
         lazy_update(0, tam - 1, 0, i, j, x);
-    }
-};
-
-int main() {
-    return 0;
-}
-
+    }};
