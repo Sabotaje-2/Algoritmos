@@ -21,7 +21,7 @@ struct st {
         tree[pos].first = max(tree[left].first, tree[right].first);
         tree[pos].second = min(tree[left].second, tree[right].second);
     }
-    ii lazy_query(int low, int high, int pos, int &qlow, int &qhigh) {
+    ii lazy_query(int low, int high, int pos, int& qlow, int& qhigh) {
         int mid = (low + high) >> 1;
         int left = (pos << 1) | 1;
         int right = left + 1;
@@ -45,7 +45,7 @@ struct st {
     ii query(int i, int j) {
         return lazy_query(0, tam - 1, 0, i, j);
     }
-    void lazy_update(int low, int high, int pos, int &qlow, int &qhigh, int &cant) {
+    void lazy_update(int low, int high, int pos, int& qlow, int& qhigh, int& cant) {
         int mid = (low + high) >> 1;
         int left = (pos << 1) | 1;
         int right = left + 1;

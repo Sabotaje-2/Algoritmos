@@ -1,12 +1,12 @@
 const int PRIME = 3;
 const int MOD = 1e9 + 7;
 int minv;// modular inverse
-bool compare(char *text, char * pattern, int p, int& plen) {
+bool compare(char* text, char* pattern, int p, int& plen) {
     foi(i, 0, plen)
         if(pattern[i] != text[i + p]) return false;
     return true;
 }
-int rabin_karp(char *text, char *pattern) {
+int rabin_karp(char* text, char* pattern) {
     int hp, pp, ht;// hash_pattern , prime_power & hash_text
     hp = ht = 0;
     int plen = strlen(pattern), tlen = strlen(text);
