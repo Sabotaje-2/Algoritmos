@@ -11,7 +11,7 @@ bool bfs(int source, int sink) {
     u = q.front();
     q.pop();
     if(u == sink) return true;
-    foi(i, 0, g[u].size()) {
+    foi(i,0,g[u].size()) {
       v = g[u][i];
       if(p[v] == -1 && f[u][v] > 0)
         q.push(v), p[v] = u;

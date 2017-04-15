@@ -3,7 +3,7 @@ struct dsu {
   dsu(int n) {
     sz.assign(n, 1);
     parent.assign(n, 0);
-    foi(i, 1, n)
+    foi(i,1,n)
       parent[i] = i;
   }
   int find_parent(int k) {

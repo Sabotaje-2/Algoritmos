@@ -4,7 +4,7 @@ int p[MAX_N]; // El padre inmediato de cada nodo
 int h[MAX_N]; // La altura de cada nodo, MAX_N = Maximo numero de nodos
 int fo[MAX_N]; // Indice de la primer ocurrencia de cada nodo en ocurrences
 
-void dfs(int u , int alt = 0) {
+void dfs(int u, int alt = 0) {
     int v;
     fo[u] = ocurrences.size();
     h[u] = alt;
@@ -24,7 +24,7 @@ struct st {
         int columns = 1 + floor(log2(arr.size()));// C++11
         table.assign(arr.size() , vector < int >(columns , -2));
         foi(i,0,arr.size()) table[i][0] = arr[i];
-        for(int j = 1 ; j < columns ; ++j)
+        foi(j,1,columns)
             for(int i = 0 ; i + (1 << j) - 1 < (int)arr.size() ; ++i) {
                 table[i][j] = table[i][j-1];
                 if(h[table[i + (1 << (j - 1))][j-1]] < h[table[i][j]])
