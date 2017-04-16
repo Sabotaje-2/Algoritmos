@@ -45,5 +45,4 @@ struct st {
   }
   void update(int pos, int val) {
     update(0, tam - 1, 0, pos, val);
-  }
-};
+  }};
