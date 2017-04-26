@@ -3,7 +3,6 @@ vector < int > ocurrences;
 int p[MAX_N]; // El padre inmediato de cada nodo
 int h[MAX_N]; // La altura de cada nodo, MAX_N = Maximo numero de nodos
 int fo[MAX_N]; // Indice de la primer ocurrencia de cada nodo en ocurrences
-
 void dfs(int u, int alt = 0) {
     int v;
     fo[u] = ocurrences.size();
@@ -17,7 +16,6 @@ void dfs(int u, int alt = 0) {
         ocurrences.push_back(u);
     }
 }
-
 struct st {
     vector < vector < int > > table;
     st(vector < int >& arr) {
