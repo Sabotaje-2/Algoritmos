@@ -1,5 +1,5 @@
-vector < vector < int > > g;
-bitset < MAX_N > visited, used;
+vector < vector <int> > g;
+bitset <MAX_N> visited, used;
 int n,k,matching[MAX_K];
 // n = numero de nodos en izquierda
 // k = numero de nodos en la derecha

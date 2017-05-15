@@ -1,8 +1,8 @@
 struct st {
-    vector < vector < int > > table;
-    st(vector < int >& arr) {
+    vector < vector <int> > table;
+    st(vector <int>& arr) {
         int columns = 1 + floor(log2(arr.size()));// C++11
-        table.assign(arr.size(), vector < int > (columns , - 2));
+        table.assign(arr.size(), vector <int> (columns , - 2));
         foi(i,0,table.size())  table[i][0] = arr[i];
         foi(j,1,columns)
             for(int i = 0 ; i + (1 << j) <= (int)table.size() ; ++i)

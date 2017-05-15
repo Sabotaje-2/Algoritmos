@@ -1,14 +1,14 @@
 struct st {
     int tam;
-    vector < ii > tree;
-    vector < int > lazy;
+    vector <ii> tree;
+    vector <int> lazy;
     st(int n) {
         tam = n;
         tree.assign(tam << 2, ii(0,0));
         lazy.assign(tam << 2, 0);
         // build(0, tam - 1, 0, ...);
     }
-    void build(int low, int high, int pos, vector < int >& arr) {
+    void build(int low, int high, int pos, vector <int>& arr) {
         if(low == high) {
             tree[pos].first = tree[pos].second = arr[low];
             return;

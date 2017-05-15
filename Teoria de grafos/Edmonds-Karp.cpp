@@ -1,10 +1,10 @@
 int p[MAX_NODOS], f[MAX_NODOS][MAX_NODOS], mine;
 // reiniciar el flujo(f) a 0 en cada caso
-vector < vector < int > > g;
+vector < vector <int> > g;
 bool bfs(int source, int sink) {
   memset(p, -1, sizeof p);
   int u,v;
-  queue < int > q;
+  queue <int> q;
   q.push(source);
   p[source] = DUMMY; // DUMMY <= -2
   while(q.size()) {

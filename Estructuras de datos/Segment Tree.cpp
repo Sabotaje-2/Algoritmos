@@ -1,12 +1,12 @@
 struct st {
-  vector < int > tree;
+  vector <int> tree;
   int tam;
-  st(vector < int >& arr) {
+  st(vector <int>& arr) {
     tree.resize(arr.size() << 2);
     tam = arr.size();
     build(0, tam - 1, 0, arr);
   }
-  void build(int low, int high, int pos, vector < int >& arr) {
+  void build(int low, int high, int pos, vector <int>& arr) {
     if(low == high) {
       tree[pos] = arr[low];
       return;

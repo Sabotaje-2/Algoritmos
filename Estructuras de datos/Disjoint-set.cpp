@@ -1,5 +1,5 @@
 struct dsu {
-  vector < int > parent, sz;
+  vector <int> parent, sz;
   dsu(int n) {
     sz.assign(n, 1);
     parent.assign(n, 0);

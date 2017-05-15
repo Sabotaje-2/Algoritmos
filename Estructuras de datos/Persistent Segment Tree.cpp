@@ -10,10 +10,10 @@ struct node {
 struct pst {
     node* root;
     pst(){root = NULL;}
-    pst(vector < int >& arr) {
+    pst(vector <int>& arr) {
         root = build(0, tam - 1, arr);
     }
-    node* build(int low, int high, vector < int >& arr) {
+    node* build(int low, int high, vector <int>& arr) {
         node* n = new node;
         if(low == high)
             n->val = arr[low];
@@ -34,7 +34,7 @@ struct pst {
     int query(int i, int j) {
         return query(0, tam - 1, root, i, j);
     }
-    bool in(int &pos, int& low, int& high) {
+    bool in(int& pos, int& low, int& high) {
         return pos >= low && pos <= high;
     }
     node* update(int& pos, int& val, int low, int high, node* current) {// return root of new version of segment tree
