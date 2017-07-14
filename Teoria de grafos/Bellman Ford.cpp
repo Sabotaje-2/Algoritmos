@@ -11,15 +11,15 @@ bool relax(int u, vector<int>& dist) {
     return relaxed;
 }
 bool bellman_ford(int source) {// true = ciclo negativo
-    vector<int> dist(g.size(), INT_MAX);
+    vector<int> dist(g.size(), LONG_MAX);
     dist[source] = 0;
     foi(i,0,g.size() - 1) // iterar sobre las aristas V - 1 veces
         foi(u,0,g.size()) {
-            if(dist[u] == INT_MAX)  continue;
+            if(dist[u] == LONG_MAX)  continue;
             relax(u, dist);
         }
     foi(u,0,g.size()) {
-        if(dist[u] == INT_MAX)  continue;
+        if(dist[u] == LONG_MAX)  continue;
         if(relax(u, dist))  return true;
     }
     return false;

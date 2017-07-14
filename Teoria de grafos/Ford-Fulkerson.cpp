@@ -27,7 +27,7 @@ int max_flow(const int s, const int t) {
         visited.reset();
         p[s] = -1;
         if(!dfs(s, t)) return flow;
-        bottleneck = INT_MAX;
+        bottleneck = LONG_MAX;
         path(t);
         flow += bottleneck;
     }

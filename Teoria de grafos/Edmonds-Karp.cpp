@@ -31,7 +31,7 @@ void path(int v) {
 int max_flow(const int s, const int t) {
     int flow = 0;
     while(bfs(s, t)) {
-        mine = INT_MAX;
+        mine = LONG_MAX;
         path(t);
         flow += mine;
     }
