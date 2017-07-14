@@ -1,14 +1,13 @@
-vector <int> parent,ind;
-void path(int i, vector <int>& ans) {
+vector<int> parent;
+void path(int i, vector<int>& ans) {
     if(i == -1) return;
     path(parent[i], ans);
     ans.push_back(i);
 }
-vector <int> lis(vector <int>& arr) {
+vector<int> lis(vector<int>& arr) {
     int pos;
-    vector <int> l;
+    vector<int> l, ind;
     parent.assign(arr.size(), -1);
-    ind.clear();
     foi(i,0,arr.size()) {
         if(l.empty()) {
             l.push_back(arr[i]);
@@ -31,7 +30,7 @@ vector <int> lis(vector <int>& arr) {
                 parent[i] = ind[pos - 1];
         }
     }
-    vector <int> ans;
+    vector<int> ans;
     path(ind.back(), ans);
     return ans; // retorna los indices de la lis
 }

@@ -1,4 +1,4 @@
-int tam; // segment tree size
+int tam; // array size
 struct node {
     node *left, *right;
     int val;
@@ -10,10 +10,10 @@ struct node {
 struct pst {
     node* root;
     pst(){root = NULL;}
-    pst(vector <int>& arr) {
+    pst(vector<int>& arr) {
         root = build(0, tam - 1, arr);
     }
-    node* build(int low, int high, vector <int>& arr) {
+    node* build(int low, int high, vector<int>& arr) {
         node* n = new node;
         if(low == high)
             n->val = arr[low];
