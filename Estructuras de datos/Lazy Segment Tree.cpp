@@ -1,7 +1,7 @@
 struct st {
     int tam;
-    vector <ii> tree;
-    vector <int> lazy;
+    vector<ii> tree;
+    vector<int> lazy;
     st(int n) {
         tam = n;
         tree.assign(tam << 2, ii(0,0));
