@@ -13,6 +13,7 @@ struct kosaraju {
                 revg[v].push_back(u);
         }
         visited.assign(g.size(), false);
+        scc.reserve(g.size());
         while(topo.size()) {
             int u = topo.top();topo.pop();
             if(!visited[u]) {
