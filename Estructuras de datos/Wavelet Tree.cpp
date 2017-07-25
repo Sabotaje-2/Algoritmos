@@ -41,5 +41,4 @@ struct wt {
         n->left = build(arr, low, mid, s, m);
         n->right = build(arr, 1 + mid, high, m, e);
         return n;
-    }
-};
+    }};
