@@ -1,35 +1,55 @@
-vector<vector<int>> g;
-bitset<MAX_N> visited, used;
-int n,k,matching[MAX_K];
-// n = numero de nodos en izquierda
-// k = numero de nodos en la derecha
-// matching[i] = nodo de la izquierda que matchea con i
+int LEFT, RIGHT, lmatch[MAX_L], rmatch[MAX_L + MAX_R];
+bitset<MAX_L + MAX_R> visited;
 bool kuhn(int u) {
-    if(visited[u])  return false;
+    if(visited[u]) return false;
     visited[u] = true;
     for(const auto& v: g[u])
-        if(matching[v] == -1 || kuhn(matching[v])) {
-            matching[v] = u;
+        if(rmatch[v] == -1 || kuhn(rmatch[v])) {
+            lmatch[u] = v;
+            rmatch[v] = u;
             return true;
         }
     return false;
 }
-int kuhn() { // O(VE)
-    int max_matching = 0;
-    memset(matching, -1, sizeof matching);
-    used.reset();
-    foi(u,0,n) // greedy matching
-        for(const auto& v: g[u])
-            if(matching[v] == -1) {
-                ++max_matching;
-                matching[v] = u;
-                used[u] = true;
+void kuhn() {
+    memset(lmatch, -1, sizeof lmatch);
+    memset(rmatch, -1, sizeof rmatch);
+    for(int u = 0; u < LEFT; ++u)
+        for(auto v: g[u])
+            if(rmatch[v] == -1) {
+                lmatch[u] = v;
+                rmatch[v] = u;
                 break;
             }
-    foi(i,0,n) { // kuhn's algo
-        if(used[i]) continue;
-        visited.reset();
-        max_matching += kuhn(i);
+    for(int u = 0; u < LEFT; ++u)
+        if(lmatch[u] == -1) {
+            visited.reset();
+            kuhn(u);
+        }
+}
+void dfs(int u, bool r = false) {
+    if(visited[u]) return;
+    visited[u] = true;
+    if(r) {
+        if(rmatch[u] != -1) dfs(rmatch[u]);
+        return;
     }
-    return max_matching;
+    for(auto v: g[u])
+        if(lmatch[u] != v)
+            dfs(v, true);
+}
+vector<int> mvc() {
+    vector<int> ans;
+    kuhn();
+    visited.reset();
+    for(int i = 0; i < LEFT; ++i)
+        if(lmatch[i] == -1)
+            dfs(i);
+    for(int i = 0; i < LEFT; ++i)
+        if(!visited[i])
+            ans.push_back(i);
+    for(int i = LEFT; i < LEFT + RIGHT; ++i)
+        if(visited[i])
+            ans.push_back(i);
+    return ans;
 }
