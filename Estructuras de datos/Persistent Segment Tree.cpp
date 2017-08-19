@@ -1,13 +1,13 @@
-int tam; // array size
-struct node {
-    node *left, *right;
-    int val;
-    node(){left = right = NULL;}
-    node(const node* other) {
-        this->left = other->left;
-        this->right = other->right;
-    }};
+int tam;
 struct pst {
+    struct node {
+        node *left, *right;
+        int val;
+        node(){left = right = NULL;}
+        node(const node* other) {
+            this->left = other->left;
+            this->right = other->right;
+        }};
     node* root;
     pst(){root = NULL;}
     pst(vector<int>& arr) {
@@ -34,16 +34,13 @@ struct pst {
     int query(int i, int j) {
         return query(0, tam - 1, root, i, j);
     }
-    bool in(int& pos, int& low, int& high) {
-        return pos >= low && pos <= high;
-    }
-    node* update(int& pos, int& val, int low, int high, node* current) {// return root of new version of segment tree
+    node* update(int& pos, int& val, int low, int high, node* current) {
         node* n = new node(current);
         if(low == high)
             n->val = val;
         else {
             int mid = (low + high) >> 1;
-            if(in(pos, low, mid))
+            if(pos <= mid)
                 n->left = update(pos, val, low, mid, current->left);
             else
                 n->right = update(pos, val, 1 + mid, high, current->right);
