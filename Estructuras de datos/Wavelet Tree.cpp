@@ -7,7 +7,7 @@ struct wt {
     node* root;
     int mini, maxi;
     wt(vector<int> arr) {
-        mini = LONG_MAX, maxi = LONG_MIN;
+        mini = numeric_limits<int>::max(), maxi = numeric_limits<int>::min();
         for(const auto& u: arr) mini = min(mini, u), maxi = max(maxi, u);
         root = build(arr, mini, maxi, arr.begin(), arr.end());
     }
