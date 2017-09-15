@@ -24,8 +24,8 @@ struct sat {
     }
     void process(int block, vector<int>& arr, int n) {
         for(int& x: scc[block])
-            if(arr[u - (u >= n ? n : 0)] == -1)
-                arr[u - (u >= n ? n : 0)] = (x < n);
+            if(arr[x - (x >= n ? n : 0)] == -1)
+                arr[x - (x >= n ? n : 0)] = (x < n);
     }
     vector<int> solve(vector<vector<int>>& g, int n) {
         vector<int> ans;
