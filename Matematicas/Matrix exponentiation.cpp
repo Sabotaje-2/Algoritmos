@@ -1,18 +1,47 @@
-vector<vi> mul(vector<vi>& a, vector<vi>& b, int MOD) {
-    int n = a.size(), m = b[0].size();
-    vector<vi> ans(n, vi(m, 0));
-    foi(i,0,n)foi(j,0,m)foi(k,0,b.size())
-        ans[i][j] = (ans[i][j] + ((1LL * a[i][k] * b[k][j]) % MOD)) % MOD;
-    return ans;
-} 
-vector<vi> mpow(vector<vi>& mat, int exp, int MOD) {
-    vector<vi> ans(mat.size(), vi(mat.size(), 0)), power = mat;
-    foi(i,0,ans.size()) ans[i][i] = 1;
-    while(exp) {
-        if(exp & 1)
-            ans = mul(ans, power, MOD);
-        power = mul(power, power, MOD);
-        exp >>= 1;
+const int MAXR = 3;
+const int MAXC = 3;
+const int MOD = 1e9 + 7;
+struct matrix {
+    int m[MAXR][MAXC];
+    int r,c;
+    matrix(const matrix& o) {
+        r = o.r; c = o.c;
+        assert(r <= MAXR && c <= MAXC);
+        foi(i,0,r) foi(j,0,c) m[i][j] = o.m[i][j];
     }
-    return ans;
-}
+    matrix(int _r, int _c, int def) {
+        r = _r; c = _c;
+        assert(r <= MAXR && c <= MAXC);
+        foi(i,0,r) foi(j,0,c) m[i][j] = def;
+    }
+    matrix(vector<vector<int>> v) {
+        r = v.size(); c = v[0].size();
+        assert(r <= MAXR && c <= MAXC);
+        foi(i,0,r) foi(j,0,c) m[i][j] = v[i][j];
+    }
+    matrix operator*(const matrix& o) const {
+        matrix ans(r, o.c, 0);
+        foi(i,0,ans.r)foi(j,0,ans.c)foi(k,0,o.r)
+            ans.m[i][j] = (ans.m[i][j] + ((1LL * m[i][k] * o.m[k][j]) % MOD)) % MOD;
+        return ans;
+    }
+    matrix fpow(ll exp) {
+        assert(r == c);
+        matrix ans(r,r,0), power(*this);
+        foi(i,0,r) ans.m[i][i] = 1;
+        while(exp) {
+            if(exp & 1)
+                ans = ans * power;
+            power = power * power;
+            exp >>= 1;
+        }
+        return ans;
+    }
+    friend ostream& operator << (ostream& s, matrix m) {
+        foi(i,0,m.r) {
+            foi(j,0,m.c)
+                s << m.m[i][j] << ' ';
+            s << endl;
+        }
+        return s;
+    }};
