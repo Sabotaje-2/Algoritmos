@@ -1,6 +1,6 @@
 const int MAXN = 5 + 100000;
 const int MAXLOG = 18;
-int N,C;
+int N;
 ll arr[MAXN],st[MAXN][MAXLOG], pl[MAXN];
 void build() {
     int pot = 0;
