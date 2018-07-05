@@ -3,16 +3,11 @@ vector<vector<int>> g;
 vector<int> kahn() {//  O(V + E)
     vector<int> topo;
     queue<int> kahn;
-    int u;
-    foi(i,0,g.size())
-        if(!in[i])  kahn.push(i);
+    foi(i,0,g.size()) if(!in[i])  kahn.push(i);
     while(kahn.size()) {
-        u = kahn.front();
+        int u = kahn.front(); kahn.pop();
         topo.push_back(u);
-        kahn.pop();
-        for(const auto& v: g[u])
-          if(!--in[v])
-            kahn.push(v);
+        for(const auto& v: g[u]) if(!--in[v]) kahn.push(v);
     }
     return topo;
 }
