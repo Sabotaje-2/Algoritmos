@@ -32,5 +32,5 @@ vector<int> lis(vector<int>& arr) {
     }
     vector<int> ans;
     path(ind.back(), ans);
-    return ans; // retorna los indices de la lis
+    return ans; // retorna los indices(0-BASED) de la lis ESTRICTAMENTE CRECIENTE
 }
