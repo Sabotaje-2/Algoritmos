@@ -1,3 +1,5 @@
+// LIS ESTRICTAMENTE creciente
+// Para LIS NO-decreciente usar compresion de coordenadas + segment tree + dp
 int lis(vector<int>& arr) {
     vector<int> ans;
     for(const auto& u: arr)
