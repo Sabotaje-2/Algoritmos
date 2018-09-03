@@ -1,56 +1,38 @@
-struct lazy_tree {
+#define left ((pos << 1) | 1)
+#define right (1 + left)
+#define mid ((low + high) >> 1)
+struct lazy_st {
     vector<ll> tree, lazy;
     int sz;
-    lazy_tree(int n) {
-        tree.assign(n << 2, 0LL);
-        lazy.assign(n << 2, 0LL);
-        sz = n;
+    lazy_st(int n) {
+        tree.resize((sz = n) << 2);
+        lazy.resize(n << 2);
     }
-    void push(int pos, int low, int high) {
-        tree[pos] += ((1LL + high - low) * lazy[pos]);
-        if(low != high) {
-            int l = (pos << 1) | 1, r = 1 + l;
-            lazy[l] += lazy[pos];
-            lazy[r] += lazy[pos];
+    void push(int pos, int l, int r) {
+        tree[pos] += (1LL * (1 + r - l) * lazy[pos]);
+        if(l != r) {
+            lazy[left] += lazy[pos];
+            lazy[right] += lazy[pos];
         }
         lazy[pos] = 0LL;
     }
-    ll query(int& qlow, int& qhigh, int low, int high, int pos) {
+    ll query(const int& ql, const int& qr, int low, int high, int pos) {
         push(pos, low, high);
-        int left = (pos << 1) | 1, mid = (low + high) >> 1, right = 1 + left;
-        if(qhigh < low || qlow > high) return 0LL;
-        if(low >= qlow && high <= qhigh) return tree[pos];
-        return query(qlow, qhigh, low, mid, left) + query(qlow, qhigh, 1 + mid, high, right);
+        if(qr < low || ql > high) return 0LL;
+        if(low >= ql && high <= qr) return tree[pos];
+        return query(ql, qr, low, mid, left) + query(ql, qr, 1 + mid, high, right);
     }
-    ll query(int i, int j) {
-        return query(--i, --j, 0, sz - 1, 0);
-    }
-    ll range(int low, int high, int i, int j) {
-        int ans = 1 + (j - i);
-        if(i >= low && j <= high) return ans;
-        if(i >= low)
-            ans -= (j - high);
-        else
-            ans -= (low - i);
-        return ans;
-    }
-    void update(int& qlow, int& qhigh, ll& val, int low, int high, int pos) {
+    ll query(int l, int r){return query(l, r, 0, sz - 1, 0);}
+    ll update(const int& ql, const int& qr, ll& qu, int low, int high, int pos) {
         push(pos, low, high);
-        int left = (pos << 1) | 1, mid = (low + high) >> 1, right = 1 + left;
-        if(qhigh < low || qlow > high) return;
-        if(low >= qlow && high <= qhigh) {
-            tree[pos] += ((1LL + high - low) * val);
+        if(qr < low || ql > high) return tree[pos];
+        if(low >= ql && high <= qr) {
             if(low != high) {
-                lazy[left] += val;
-                lazy[right] += val;
+                lazy[left] += qu;
+                lazy[right] += qu;
             }
+            return tree[pos] += (1LL * (1 + high - low) * qu);
         }
-        else {
-            tree[pos] += (range(low, high, qlow, qhigh) * val);
-            update(qlow, qhigh, val, low, mid, left);
-            update(qlow, qhigh, val, 1 + mid, high, right);
-        }
+        return tree[pos] = update(ql, qr, qu, low, mid, left) + update(ql, qr, qu, 1 + mid, high, right);
     }
-    void update(int i, int j, ll val) {
-        update(--i, --j, val, 0, sz - 1, 0);
-    }};
+    void update(int l, int r, ll qu){update(l, r, qu, 0, sz - 1, 0);}};
