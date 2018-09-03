@@ -1,4 +1,4 @@
-struct hashing {
+struct shash {
     int B,P;
     vector<int> h, pot;
     const int MIN = 1e9;
@@ -7,15 +7,14 @@ struct hashing {
             if(!(k % i)) return false;
         return true;
     }
-    hashing(string& s, int seed) {
-        mt19937 rng;
-        rng.seed(seed);
-        P = uniform_int_distribution<>(0, (int)5e8)(rng) + MIN;
+    shash(string& s) {
+        mt19937 rng(chrono::steady_clock::now().time_since_epoch().count());
+        P = uniform_int_distribution<>(2, (int)5e8)(rng) + MIN;
         while(!prime(P)) ++P;
         B = uniform_int_distribution<>(2, P - 2)(rng);
         build(s);
     }
-    hashing(string& s, const hashing& o) {
+    shash(string& s, const shash& o) {
         B = o.B;
         P = o.P;
         build(s);
@@ -36,4 +35,3 @@ struct hashing {
             pot[i] = (1LL * B * pot[i - 1]) % P;
         }
     }};
-srand(time(NULL)); // poner en main
