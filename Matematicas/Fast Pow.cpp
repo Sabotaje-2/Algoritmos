@@ -1,9 +1,8 @@
-int fast_pow(int base, int exp, int MOD) {
-    int ans = 1ULL, power = base;
+ll fpow(ll base, ll exp) {
+    ll ans = 1LL, power = base;
     while(exp) {
-        if(exp & 1)
-            ans = (1ULL * ans * power) % MOD;
-        power = (1ULL * power * power) % MOD;
+        if(exp & 1) ans = (ans * power) % MOD;
+        power = (power * power) % MOD;
         exp >>= 1;
     }
     return ans;
