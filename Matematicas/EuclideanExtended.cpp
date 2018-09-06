@@ -1,3 +1,4 @@
+//  ax  ≡ 1 (mod b) 
 // if gcdex(a,b) == 1 no existe inverso modular
 int gcdex(int a, int b , int &x, int &y)
 {
