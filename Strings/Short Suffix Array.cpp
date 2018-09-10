@@ -1,42 +1,50 @@
-struct suffix_array {
-    vector<vector<int> > mat;
-    vector<int> order, suffix;
-    int lastk, sz;
-    struct data {
-        int idx, tie, last;
-        bool operator < (const data& o) const {
-            if(this-> last == o.last)
-                return this->tie < o.tie;
-            return this->last < o.last;
-        }
-    };
-    vector<data> temp;
-    suffix_array(const string& s) { // O(nlg^2(n))
-        temp.resize(sz = s.size());
-        order.resize(s.size());
-        suffix.resize(s.size());
-        mat.assign(2 + floor(log2(s.size())), vector<int>(s.size()));
-        foi(i,0,s.size())
-            mat[0][i] = s[i];
-        for(int k = 1, len = 1; len < (int)s.size(); ++k, len <<= 1) {
-            foi(i,0,s.size()) {
-                temp[i].last = mat[k - 1][i];
-                temp[i].idx = i;
-                temp[i].tie = i + len < (int)s.size() ? mat[k - 1][i + len] : -1;
-            }
-            sort(temp.begin(), temp.end());
-            foi(i,0,s.size()) {
-                suffix[i] = mat[k][temp[i].idx] = i && temp[i].tie == temp[i - 1].tie && temp[i].last == temp[i - 1].last ? mat[k][temp[i - 1].idx] : i;
-                order[i] = temp[i].idx;
-            }
-            lastk = k;
-        }
+struct suffarr {
+    struct D {
+        int idx, pos, posadd;
+        bool operator<(const D& o) const {
+            if(pos == o.pos) return posadd < o.posadd;
+             return pos < o.pos;
+        }};
+    int len,lk;
+    vector<int> sa, arr[MAXLOG];
+    vector<D> v;
+    suffarr() : v(MAXN), sa(MAXN) {
+        foi(i,0,MAXLOG) arr[i].resize(MAXN);
     }
-    int lcp(int x, int y) {
+    void build(string s, int NL = -1) { //O(nlg^2n)
+        int add; len = s.size();
+        foi(i,0,len) arr[0][i] = s[i];
+        for(int k = 1; (1 << k) <= len; ++k) {
+            foi(i,0,len) {
+                add = i + (1 << (k - 1));
+                v[i].idx = i;
+                v[i].pos = arr[k - 1][i];
+                v[i].posadd = (add < len ? arr[k - 1][add] : NL);
+            }
+            sort(v.begin(), v.begin() + len);
+            foi(i,0,len) arr[k][v[i].idx] = (i && v[i].pos == v[i - 1].pos && v[i].posadd == v[i - 1].posadd ? arr[k][v[i - 1].idx] : i);
+            lk = k;
+        }
+        foi(i,0,len) sa[arr[lk][i]] = i;
+    }
+    int lcp(int i, int j) {
         int ans = 0;
-        if(x == y) return sz - x;
-        for(int k = lastk - 1; k >= 0 && x < sz && y < sz; --k)
-            if(mat[k][x] == mat[k][y])
-                x += (1 << k), y += (1 << k), ans += (1 << k);
+        for(int k = lk; ~k && i < len && j < len; --k)
+            if(arr[k][i] == arr[k][j])
+                ans += (1 << k), i += (1 << k), j += (1 << k);
+        return ans;
+    }
+    string lcs(const string& f, const string& s) {
+        int x,y,maxi=0,start; string ans;
+        build(f + "$" + s);
+        foi(i,1,len) {
+            x = sa[i - 1]; y = sa[i];
+            if(x > y) swap(x,y);
+            if(x < (int)f.size() && y >= 1 + (int)f.size() && lcp(x,y) > maxi) {
+                maxi = lcp(x,y);
+                start = x;
+            }
+        }
+        foi(i,0,maxi) ans += f[start + i];
         return ans;
     }};
