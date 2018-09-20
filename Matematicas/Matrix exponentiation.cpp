@@ -22,7 +22,7 @@ struct matrix {
     matrix operator*(const matrix& o) const {
         matrix ans(r, o.c, 0);
         foi(i,0,ans.r)foi(j,0,ans.c)foi(k,0,o.r)
-            ans.m[i][j] = (ans.m[i][j] + ((1LL * m[i][k] * o.m[k][j]) % MOD)) % MOD;
+            ans.m[i][j] = (ans.m[i][j] + (1LL * m[i][k] * o.m[k][j])) % MOD;
         return ans;
     }
     matrix fpow(ll exp) {
