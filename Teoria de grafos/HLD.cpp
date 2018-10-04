@@ -28,6 +28,7 @@ namespace HLD {
     // chain[u] = cadena a la cual pertenece u
     // chainhead[u] = nodo mas alto de la u-esima cadena
     // pos[u] = posicion del nodo u en el recorrido
+    // 1 + curcha = numero de cadenas
     // hldtour - recorrido
     int chainhead[MAXN], hldtour[MAXN], pos[MAXN], chain[MAXN], curcha, hldsz;
     stree st;
