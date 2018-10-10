@@ -1,36 +1,15 @@
-vector<int> prefix_function(string& s) {
-    vector<int> b(1 + s.size());
-    int j;
-    b[0] = b[1] = 0;
-    for(int i = 2; i <= (int)s.size(); ++i) {
-        j = b[i - 1];
-        for(;;) {
-            if(s[j] == s[i - 1]) {
-                b[i] = 1 + j;
-                break;
-            }
-            if(!j) {
-                b[i] = 0;
-                break;
-            }
-            j = b[j];
-        }
+vector<int> pf(const string& s) {
+    vector<int> pi(s.size()); pi[0] = 0; // pi[i] = longitud del PROPER suffix mas largo que termina en i, y que ademas es un prefix
+    foi(i,1,s.size()) {
+        int j = pi[i - 1];
+        while(j && s[i] != s[j]) j = pi[j - 1];
+        pi[i] = j + (s[i] == s[j]);
     }
-    return b;
+    return pi;
 }
-int kmp(string& t, string& p, vector<int> b) {
-    int i = 0, j = 0, ans = 0;
-    for(;;) {
-        if(i >= (int)t.size()) break;
-        if(t[i] != p[j]) {
-            if(!j) ++i;
-            else j = b[j];
-        } else
-            ++i,++j;
-        if(j == (int)p.size()) {
-            ++ans; // match at t[i - p.size()]
-            j = b[j];
-        }
-    }
-    return ans;
+void kmp(const string& t, const string& p) {
+    vector<int> pi = pf(p + "$" + t);
+    foi(i,2*p.size(),pi.size())
+        if(pi[i] == (int)p.size())
+            cout << "Match en " << i - 2*p.size() << endl;
 }
