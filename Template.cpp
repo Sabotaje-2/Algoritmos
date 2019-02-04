@@ -1,4 +1,12 @@
-typedef vector<int> vi;
-typedef vector<int>::iterator it;
-typedef pair<int,int> ii;
+#include <bits/stdc++.h>
 #define foi(i,k,n) for(int i = (int)k; i < (int)n; ++i)
+using namespace std;
+using ll = long long;
+using ii = pair<int,int>;
+using vi = vector<int>;
+using it = vector<int>::iterator;
+
+int main() {
+    ios::sync_with_stdio(false); cin.tie(nullptr); cout.tie(nullptr);
+    return 0;
+}
