@@ -3,21 +3,16 @@
 using namespace std;
 using namespace __gnu_pbds;
 
-typedef tree<
-ii,
-null_type,
-less<ii>,
-rb_tree_tag,
-tree_order_statistics_node_update>
-ordered_set;
+using ordered_set = tree<ii,
+null_type, less<ii>,
+rb_tree_tag, tree_order_statistics_node_update>;
 
-int inversions(vector<int> arr) {
-    int ans = 0, t = 0;
+ll inversions(int arr[], int sz) {
+    ll ans = 0, t = 0;
     ordered_set s;
-    for(auto x : arr) s.insert(ii(x, t++));
-    foi(i,0,arr.size()) {
-        s.erase(s.lower_bound(ii(arr[i], 0)));
-        ans += s.order_of_key(ii(arr[i], 0)); // Cuenta las inversiones en la i-esima posicion
+    for(int i = sz - 1; i >= 0; --i) {
+        ans += (1LL * s.order_of_key(ii(arr[i], 0))); // Cuenta las inversiones en la i-esima posicion
+        s.insert(ii(arr[i], t++));
     }
     return ans;
 }
