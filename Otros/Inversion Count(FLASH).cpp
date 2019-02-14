@@ -20,7 +20,7 @@ namespace INVERSIONS {
     }
     int v[MAXN];
     const int BEG = 1;
-    ll solve(int* arr, int N) {
+    ll solve(int arr[], int N) {
         copy(arr, arr + N, v); sort(v, v + N);
         ll ans = 0LL; int num;
         sz = unique(v, v + N) - v;
