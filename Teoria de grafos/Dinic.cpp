@@ -35,7 +35,9 @@ int max_flow(int s, int t, int ans = 0) {
     while(bfs(s,t)) ans += dfs(s,numeric_limits<int>::max(),t);
     return ans;
 }
-void add_edge(int u, int v, int fadd) { // cambiar a matriz de ady cuando hayan aristas repetidas
+// Cuando hay aristas repetidas -> cambiar flow a matriz de ady
+// y mirar la matriz de booleanos(add) antes de poner una arista en g
+void add_edge(int u, int v, int fadd) {
     g[u].push_back(v); g[v].push_back(u);
     to[u][v] = max_e++; to[v][u] = max_e++;
     flow[to[u][v]] = fadd; flow[to[v][u]] = 0;
