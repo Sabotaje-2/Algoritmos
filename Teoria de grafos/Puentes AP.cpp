@@ -1,4 +1,4 @@
-// Puntos de articulacion y puentes en O(E)
+// Puntos de articulacion y puentes en O(V + E)
 namespace APB {
     int c[MAXN], tim, d[MAXN], dlow[MAXN];
     bitset<MAXN> ap; // ap[u] = es u AP?
