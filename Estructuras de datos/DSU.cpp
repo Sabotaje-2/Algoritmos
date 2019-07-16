@@ -1,4 +1,4 @@
-namespace DSU {
+namespace dsu {
     const int MAXN = 500*500;
     int f[MAXN], sz[MAXN];
     void build(int n) {
