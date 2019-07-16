@@ -1,4 +1,4 @@
-namespace LCA {
+namespace lca {
     // build O(Vlog(V)), query O(log(V))
     const int MAXN = 1+1000*1000; // Max No. Nodos
     const int MAXLG = 21; // 2^(MAXLG-1) > MAXN
