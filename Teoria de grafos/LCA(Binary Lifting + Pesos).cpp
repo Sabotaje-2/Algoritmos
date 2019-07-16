@@ -1,6 +1,6 @@
-using Tedge = int; // Costo de las aristas
 namespace lca {
     // build O(Vlog(V)), query O(log(V))
+    using Tedge = int; // Costo de las aristas
     const int MAXN = 1+1000*1000; // Max No. Nodos
     const int MAXLG = 21; // 2^(MAXLG-1) > MAXN
     vector<pair<Tedge,int>> t[MAXN]; // u->{costo,v}
