@@ -1,49 +1,31 @@
-struct lca {
-    vector<vector<int>> f,pw;
-    vector<int> l;
-    int MAX_LOG;
-    lca(vector<vector<ii>>& tree) {
-        MAX_LOG = 1 + floor(log2(tree.size()));
-        f.assign(tree.size(), vector<int>(MAX_LOG, -1));
-        pw.assign(tree.size(), vector<int>(MAX_LOG, -1));
-        l.resize(tree.size());
-        f[0][0] = 0;
-        pw[0][0] = numeric_limits<int>::min();
-        dfs(tree);
-        foi(i,1,MAX_LOG)
-            foi(u,0,tree.size()) {
-                f[u][i] = f[f[u][i-1]][i - 1];
-                pw[u][i] = max(pw[u][i - 1], pw[f[u][i-1]][i - 1]);
-            }
+namespace LCA {
+    // build O(Vlog(V)), query O(log(V))
+    const int MAXN = 1+1000*1000; // Max No. Nodos
+    const int MAXLG = 21; // 2^(MAXLG-1) > MAXN
+    vector<int> t[MAXN];
+    int f[MAXLG][MAXN], lv[MAXN];
+    void dfs(int u, int lvl) {
+        lv[u] = lvl;
+        for(int v : t[u])
+            if(f[0][u] != v)
+                f[0][v] = u, dfs(v, 1 + lvl);
     }
-    void dfs(vector<vector<ii>>& tree, int u = 0, int lvl = 0) {
-        int v,cost;
-        l[u] = lvl;
-        foi(i,0,tree[u].size()) {
-            v = tree[u][i].first;
-            cost = tree[u][i].second;
-            if(f[u][0] != v) {
-                f[v][0] = u;
-                pw[v][0] = cost;
-                dfs(tree, v, 1 + lvl);
-            }
-        }
+    void build(int n, int r) { // |V|, nodo raiz
+        f[0][r] = r; dfs(r,0);
+        foi(i,1,MAXLG) foi(u,0,n)
+            f[i][u] = f[i - 1][f[i - 1][u]];
     }
-    ii query(int u, int v) {
-        int maxi = numeric_limits<int>::min();
-        if(l[u] < l[v]) swap(u,v);
-        for(int i = MAX_LOG - 1; i >= 0; --i)
-            if(l[f[u][i]] >= l[v]) {
-                maxi = max(maxi, pw[u][i]);
-                u = f[u][i];
-            }
-        if(u == v) return ii(u, maxi);
-        for(int i = MAX_LOG - 1; i >= 0; --i)
-            if(f[u][i] != f[v][i]) {
-                maxi = max(maxi, pw[u][i]);
-                maxi = max(maxi, pw[v][i]);
-                u = f[u][i];
-                v = f[v][i];
-            }
-        return ii(f[u][0],max(maxi, max(pw[u][0], pw[v][0]))); // lca(u,v), max_edge(u,v)
-    }};
+    int query(int u, int v) {
+        if(lv[u] < lv[v]) swap(u,v);
+        for(int i = MAXLG - 1; i >= 0; --i)
+            if(lv[f[i][u]] >= lv[v])
+                u = f[i][u];
+        if(u == v) return u;
+        for(int i = MAXLG - 1; i >= 0; --i)
+            if(f[i][u] != f[i][v])
+                u = f[i][u], v = f[i][v];
+        return f[0][u];
+    }
+    int dist(int u, int v) {
+      return lv[u] + lv[v] - 2*lv[query(u,v)];
+    }}
