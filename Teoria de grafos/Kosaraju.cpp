@@ -8,7 +8,8 @@ namespace kos {
         vis[u] = true;
         if(revg)
             scc[sccno].push_back(u), my_scc[u] = sccno;
-        for(int v: (revg ? rg : g)[u])
+        const auto& gw = (revg ? rg : g);
+        for(int v: gw[u])
             if(!vis[v]) dfs(v,revg);
         if(!revg) ts.push(u);
     }
@@ -21,7 +22,7 @@ namespace kos {
         }
         fill(vis, vis + n, false); sccno = 0;
         while(!ts.empty()) {
-            int u = ts.top(); ts.pop();
+            int u = ts.top();ts.pop();
             if(!vis[u]) dfs(u,true), sccno++;
         }
     }}
