@@ -31,7 +31,7 @@ struct STree {
           query(qs, qe, 1 + m, e, ri)) : query(qs, qe, s, m, le);
     return query(qs, qe, 1 + m, e, ri);
   }
-  void update(int s, int e, int pos, int x, T val) {
+  void update(int s, int e, int pos, int x, const T& val) {
     if(x >= s && x <= e) {
       if(s == e) {
         tree[pos] = val;
@@ -42,7 +42,7 @@ struct STree {
     }
   }
   T query(int i, int j) {return query(i, j, 0, sz - 1, 0);} // check i <= j?
-  void update(int pos, T val) {update(0, sz - 1, 0, pos, val);}};
+  void update(int pos, const T& val) {update(0, sz - 1, 0, pos, val);}};
 
 struct SegTreeNode {
   int min1, min2;
