@@ -6,12 +6,11 @@ struct STree {
   vector<T> tree;
   function<T(T, T)> op;
   int sz;
-  STree(int N, function<T(T,T)> f) : op(f) {
-    assert(op); tree.resize((sz = N) << 2);
+  STree(int N, function<T(T,T)> f) : op{f}, sz{N} {
+    assert(op); tree.resize(sz << 2);
   }
   void build(int arr[], int N) {
-    sz = N;
-    build(arr, 0, sz - 1, 0);
+    sz = N; build(arr, 0, sz - 1, 0);
   }
   void build(int arr[], int s, int e, int pos) {
     if (s == e) {
@@ -24,16 +23,16 @@ struct STree {
     }
   }
   bool overlap(int qs, int qe, int s, int e) {return !(qe < s || qs > e);}
-  T query(int& qs, int& qe, int s, int e, int pos) {
-    if(s >= qs && e <= qe)  return tree[pos];
-    if(overlap(qs, qe, s, m))
+  T query(int qs, int qe, int s, int e, int pos) {
+    if (s >= qs && e <= qe)  return tree[pos];
+    if (overlap(qs, qe, s, m))
       return overlap(qs, qe, 1 + m, e) ? op(query(qs, qe, s, m, le),
           query(qs, qe, 1 + m, e, ri)) : query(qs, qe, s, m, le);
     return query(qs, qe, 1 + m, e, ri);
   }
   void update(int s, int e, int pos, int x, const T& val) {
-    if(x >= s && x <= e) {
-      if(s == e) {
+    if (x >= s && x <= e) {
+      if (s == e) {
         tree[pos] = val;
       } else {
         update(s, m, le, x, val), update(1 + m, e, ri, x, val);
@@ -43,7 +42,6 @@ struct STree {
   }
   T query(int i, int j) {return query(i, j, 0, sz - 1, 0);} // check i <= j?
   void update(int pos, const T& val) {update(0, sz - 1, 0, pos, val);}};
-
 struct SegTreeNode {
   int min1, min2;
   const SegTreeNode& operator=(int x) {
@@ -52,7 +50,6 @@ struct SegTreeNode {
     return *this;
   }
 };
-
 vector<STree<SegTreeNode>> st(10, STree<SegTreeNode>(MAXN, [](const SegTreeNode& p, const SegTreeNode& q)->SegTreeNode{
   SegTreeNode s;
   if (p.min1 <= q.min1) {
