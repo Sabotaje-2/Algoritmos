@@ -1,26 +1,19 @@
-vector<vector<ii>> g; // v, cost
-bool relax(int u, vector<int>& dist) {
-    bool relaxed = false;
-    int v, cost;
-    foi(i,0,g[u].size()) {
-        v = g[u][i].first;
-        cost = g[u][i].second;
-        if(dist[u] + cost < dist[v])
-            dist[v] = cost + dist[u], relaxed = true;
-    }
-    return relaxed;
+// UVa 558.
+namespace bfo {
+int dist[MAXN], n = -1; // BUG: n sin asignar.
+vector<ii> g[MAXN]; // u -> {v, cost}
+bool relax(int u) {
+  bool r = false;
+  for (ii e : g[u]) {
+    int v, cost; tie(v, cost) = e;
+    if (dist[u] + cost < dist[v])
+      dist[v] = cost + dist[u], r = true;
+  }
+  return r;
 }
-bool bellman_ford(int source) {// true = ciclo negativo
-    vector<int> dist(g.size(), numeric_limits<int>::max());
-    dist[source] = 0;
-    foi(i,0,g.size() - 1) // iterar sobre las aristas V - 1 veces
-        foi(u,0,g.size()) {
-            if(dist[u] == numeric_limits<int>::max())  continue;
-            relax(u, dist);
-        }
-    foi(u,0,g.size()) {
-        if(dist[u] == numeric_limits<int>::max())  continue;
-        if(relax(u, dist))  return true;
-    }
-    return false;
-}
+bool bford(int s) { // true -> ciclo negativo.
+  foi (i,0,n) dist[i] = (i == s ? 0 : INF);
+  foi (i,0,n) foi (u,0,n)
+    if (dist[u] != INF && relax(u) && i == n - 1) return true;
+  return false;
+}}

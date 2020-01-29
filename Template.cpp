@@ -3,10 +3,8 @@
 using namespace std;
 using ll = long long;
 using ii = pair<int,int>;
-using vi = vector<int>;
-using it = vector<int>::iterator;
 
 int main() {
-    ios::sync_with_stdio(false); cin.tie(nullptr); cout.tie(nullptr);
-    return 0;
+  ios::sync_with_stdio(false); cin.tie(nullptr); cout.tie(nullptr);
+  return 0;
 }

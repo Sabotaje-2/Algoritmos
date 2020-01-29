@@ -1,11 +1,11 @@
+// Sparse Table para min, max, gcd (0-BASED).
+// Para calcular sumas modificar querymin() y build().
+// PROBAR?
 namespace spt {
-const int MAXN = 5 + 100000;
-const int MAXLOG = 18;
 int pl[MAXN];
-ll st[MAXN][MAXLOG];
-void buildpot() { // Solo se llama una vez en todo el programa!
-  int pot = 0;
-  for (int i = 1; i < MAXN; ++i)
+ll st[MAXN][MAXLG];
+void buildpot() { // BUG: Nunca se invoca buildpot().
+  for (int i = 1, pot = 0; i < MAXN; ++i)
     if ((1 << pot) == i) pl[i] = pot++;
     else pl[i] = pl[i - 1];
 }

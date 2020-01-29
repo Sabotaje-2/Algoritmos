@@ -1,21 +1,25 @@
+// BIT 2D para updates y queries en puntos de una matriz (1-BASED).
+// Para updates (sumar x a un punto (r, c)) -> update(r, c, x).
+// Para consultas -> query(x1,y1,x2,y2) (x1 <= x2, y1 <= y2).
+// (x1,y1) = esquina superior izquierda.
+// (x2,y2) = esquina inferior derecha.
+// SPOJ MATSUM.
 namespace bit2d {
-const int MAXN = 5 + 2000;
-ll bit[1 + MAXN][1 + MAXN];
-void upd(int x, int y, ll val) { // 1-BASED, al inicio la matriz esta llena de ceros
-  for (; x <= MAXN; x += (x & -x)) {
-    for (int y1 = y; y1 <= MAXN; y1 += (y1 & -y1))
+int n = -1; // BUG: n sin asignar.
+ll bit[MAXN][MAXN];
+void upd(int x, int y, ll val) {
+  for (; x <= n; x += (x & -x))
+    for (int y1 = y; y1 <= n; y1 += (y1 & -y1))
       bit[x][y1] += val;
-  }
 }
 ll query(int x, int y) {
   ll ans = 0LL;
-  for (; x > 0; x -= (x & -x)) {
-    for (int y1 = y; y1 > 0; y1 -= (y1 & -y1))
+  for (; x; x -= (x & -x))
+    for (int y1 = y; y1; y1 -= (y1 & -y1))
       ans += bit[x][y1];
-  }
   return ans;
 }
 ll query(int x1, int y1, int x2, int y2) {
-  // 1-BASED, suma de esquina superior izquierda(x1,y1) hasta esquina inferior derecha(x2,y2)
-  return query(x2, y2) - query(x2, y1 - 1) - query(x1 - 1, y2) + query(x1 - 1, y1 - 1);
+  return query(x2, y2) - query(x2, y1 - 1) -
+  query(x1 - 1, y2) + query(x1 - 1, y1 - 1);
 }}

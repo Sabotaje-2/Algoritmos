@@ -15,12 +15,11 @@ struct max_queue {
 private:
   max_stack<T> s1, s2;
   void transfer() {
-    if (s1.empty()) {
+    if (s1.empty())
       while (!s2.empty()) {
         s1.push(s2.top());
         s2.pop();
       }
-    }
   }
 public:
   void push(const T& x) {s2.push(x);}
