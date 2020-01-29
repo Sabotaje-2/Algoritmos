@@ -1,4 +1,4 @@
-// PROBAR?
+// PROBAR
 namespace kos {
 vector<int> g[MAXN], rg[MAXN], scc[MAXN]; // scc to nodes
 // BUG: n sin asignar.

@@ -1,4 +1,4 @@
-// PROBAR?
+// PROBAR
 struct matrix {
 int m[MAXR][MAXC], r = MAXR, c = MAXC;
 matrix() = default;

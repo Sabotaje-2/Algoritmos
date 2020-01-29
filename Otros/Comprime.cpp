@@ -1,4 +1,4 @@
-namespace COMP {
+namespace comp {
 int v[MAXN];
 // Comprime todos los numeros comenzando desde BEG en O(nlgn).
 void compress(int arr[], int n, int BEG = 0) {

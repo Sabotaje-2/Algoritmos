@@ -1,4 +1,4 @@
-// PROBAR QUE FUNCIONA
+// Codeforces 1295D.
 int gcd(int a, int b) {
   return b ? gcd(b, a % b) : a;
 }

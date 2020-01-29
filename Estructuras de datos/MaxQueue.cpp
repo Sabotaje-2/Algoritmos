@@ -1,7 +1,7 @@
 template<class T>
 struct max_stack {
 private:
-  const T MINF = numeric_limits<T>::min(); // MENOS INFINITO
+  const T MINF = numeric_limits<T>::lowest(); // MENOS INFINITO
   stack<pair<T,T>> s; // Element, Max
 public:
   void push(const T& x) {s.push(pair<T,T>(x,max(x,getmax())));}
