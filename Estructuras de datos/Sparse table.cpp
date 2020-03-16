@@ -1,6 +1,6 @@
 // Sparse Table para min, max, gcd (0-BASED).
 // Para calcular sumas modificar querymin() y build().
-// PROBAR
+// SPOJ RMQSQ.
 namespace spt {
 int pl[MAXN];
 ll st[MAXN][MAXLG];
