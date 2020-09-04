@@ -1,18 +1,20 @@
 // UVa 820.
 namespace flows {
+// BUG: s, t, sin asignar.
+int f[MAXN][MAXN], s = -1, t = -1;
 vector<int> g[MAXN];
-int f[MAXN][MAXN], s = -1, t = -1; // BUG: s, t, sin asignar.
 bitset<MAXN> vis;
 int dfs(int u, int b) {
   if (u == t) return b;
   vis[u] = true;
   int r;
-  for (int v : g[u])
+  for (int v : g[u]) {
     if (!vis[v] && f[u][v] > 0 &&
       (r = dfs(v, min(b, f[u][v])))) {
       f[u][v] -= r; f[v][u] += r;
       return r;
     }
+  }
   return 0;
 }
 int mflow() {

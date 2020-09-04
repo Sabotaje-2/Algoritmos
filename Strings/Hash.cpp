@@ -7,27 +7,27 @@ struct shash {
 int h[MAXN], pot[MAXN], B, P;
 static constexpr int MIN = 1e9;
 bool prime(int k) {
-  for (int i = 2; i * i <= k; ++i) if ((k % i) == 0) return false;
+  for (int i = 2; 1LL*i*i <= k; ++i) if ((k % i) == 0) return false;
   return true;
 }
-shash(string& s) {
+shash(const string& s) {
   mt19937 rng(chrono::steady_clock::now().time_since_epoch().count());
   P = uniform_int_distribution<>(2, (int)5e8)(rng) + MIN;
   while (!prime(P)) ++P;
-  B = uniform_int_distribution<>(2, P - 2)(rng);
+  B = uniform_int_distribution<>(2, P-2)(rng);
   build(s);
 }
-shash(string& s, const shash& o) : B{o.B}, P{o.P} {
+shash(const string& s, const shash& o) : B{o.B}, P{o.P} {
   build(s);
 }
 int get(int i, int j) {
-  return sub(h[j], mul(i >= 1 ? h[i - 1] : 0, pot[1 + j - i], P), P);
+  return sub(h[j], mul(i >= 1 ? h[i-1] : 0, pot[1+j-i], P), P);
 }
-void build(string& s) {
+void build(const string& s) {
   h[0] = s[0];
   pot[0] = 1;
-  foi (i,1,s.size()) {
-    h[i] = add(mul(h[i - 1], B, P), s[i], P);
-    pot[i] = mul(B, pot[i - 1], P);
+  for (int i = 1; i < (int)s.size(); ++i) {
+    h[i] = add(mul(h[i-1], B, P), s[i], P);
+    pot[i] = mul(B, pot[i-1], P);
   }
 }};

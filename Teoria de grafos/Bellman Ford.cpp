@@ -12,8 +12,11 @@ bool relax(int u) {
   return r;
 }
 bool bford(int s) { // true -> ciclo negativo.
-  foi (i,0,n) dist[i] = (i == s ? 0 : INF);
-  foi (i,0,n) foi (u,0,n)
-    if (dist[u] != INF && relax(u) && i == n - 1) return true;
+  for (int i = 0; i < n; ++i) dist[i] = (i == s ? 0 : INF);
+  for (int i = 0; i < n; ++i) {
+    for (int u = 0; u < n; ++u) {
+      if (dist[u] != INF && relax(u) && i == n-1) return true;
+    }
+  }
   return false;
 }}

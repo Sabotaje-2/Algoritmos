@@ -1,39 +1,38 @@
-int p[MAX_NODOS], f[MAX_NODOS][MAX_NODOS], mine;
-// reiniciar el flujo(f) a 0 en cada caso
-bitset<MAX_NODOS> visited;
-vector<vector<int>> g;
-bool bfs(const int s, const int t) {
-    queue<int> q;
-    int u;
-    p[s] = -1;
-    visited.reset();
-    visited[s] = true;
-    q.push(s);
-    while(q.size()) {
-        u = q.front();q.pop();
-        for(const auto& v: g[u])
-          if(!visited[v] && f[u][v] > 0) {
-            q.push(v), p[v] = u, visited[v] = true;
-            if(v == t) return true;
-          }
+// UVa 820.
+namespace flows {
+// BUG: s, t, sin asignar.
+int p[MAXN], f[MAXN][MAXN], mine, s = -1, t = -1;
+bitset<MAXN> vis;
+vector<int> g[MAXN];
+bool bfs() {
+  vis.reset(); vis[s] = true;
+  p[s] = -1;
+  queue<int> q; q.push(s);
+  while (!q.empty()) {
+    int u = q.front(); q.pop();
+    for (int v: g[u]) {
+      if (!vis[v] && f[u][v] > 0) {
+        q.push(v), p[v] = u, vis[v] = true;
+        if (v == t) return true;
+      }
     }
-    return false;
+  }
+  return false;
 }
 void path(int v) {
-    int u = p[v];
-    if(~u) {
-        mine = min(mine, f[u][v]);
-        path(u);
-        f[u][v] -= mine;
-        f[v][u] += mine;
-    }
+  int u = p[v];
+  if (~u) {
+    mine = min(mine, f[u][v]);
+    path(u);
+    f[u][v] -= mine;
+    f[v][u] += mine;
+  }
 }
-int max_flow(const int s, const int t) {
-    int flow = 0;
-    while(bfs(s, t)) {
-        mine = numeric_limits<int>::max();
-        path(t);
-        flow += mine;
-    }
-    return flow;
-}
+int mflow() {
+  for (int ans = 0;;) {
+    if (!bfs()) return ans;
+    mine = numeric_limits<int>::max();
+    path(t);
+    ans += mine;
+  }
+}}
