@@ -18,7 +18,7 @@ void reset() {
   for (int i = 1; i <= n; ++i) b1[i] = b2[i] = 0;
 }
 void update(int l, int r, int x) {
-  add(l, x, -1LL * x * (l-1));
-  add(1 + r, -x, 1LL * x * r);
+  add(l, x, -1LL*x*(l-1));
+  add(1+r, -x, 1LL*x*r);
 }
-ll query(int x) {return get(b1, x) * x + get(b2, x);}}
+ll query(int x) {return get(b1,x)*x + get(b2,x);}}

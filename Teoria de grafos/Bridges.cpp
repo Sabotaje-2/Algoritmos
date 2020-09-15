@@ -1,7 +1,7 @@
-// PROBAR
-namespace APB {
+// Codeforces GYM 100342I.
+namespace apb {
 int c[MAXN], tim, d[MAXN], dlow[MAXN], DROOT;
-bitset<MAXN> ap; // ap[u] = es u AP?
+bool ap[MAXN]; // ap[u] = es u AP?
 int dfs(int u, int p) {
   c[u] = 0;
   d[u] = dlow[u] = ++tim;
@@ -11,9 +11,7 @@ int dfs(int u, int p) {
     if (c[v] == -1) {
       dlow[u] = min(dlow[u], dfs(v,u));
       if (dlow[v] > d[u]) {} // Puente (u,v)
-      if (dlow[v] >= d[u]) { // u es AP
-        ap[u] = true;
-      }
+      ap[u] |= (dlow[v] >= d[u]);
       vis++;
     } else {
       dlow[u] = min(dlow[u], d[v]);
