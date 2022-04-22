@@ -1,3 +1,4 @@
+// TO DO: Fix tab length or remove
 void z(const string& s) {
     vector<int> z(s.size());
     for(int i = 1, L = 0, R = 0, k; i < (int)s.size(); ++i)
