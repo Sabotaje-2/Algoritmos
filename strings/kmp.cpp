@@ -8,11 +8,3 @@ vector<int> pf(const string& s) {
   }
   return pi;
 }
-
-void kmp(const string& t, const string& p) {
-  vector<int> pi = pf(p+"$"+t);
-  for (int i = 2*(int)p.size(); i < (int)pi.size(); ++i) {
-    if (pi[i] == (int)p.size())
-      cout << "Match at " << i - 2*p.size() << endl;
-  }
-}
