@@ -6,7 +6,6 @@ auto lt = [](const sfx& p, const sfx& q)->bool{
 };
 void build(const vector<int>& a, int n) {
   for (int i = 0; i < n; ++i) f[0][i] = a[i];
-
   for (int k = 1; (1 << (k-1)) <= n; lk = k++) {
     for (int i = 0; i < n; ++i) {
       int add = i + (1 << (k-1));
