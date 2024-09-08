@@ -1,4 +1,4 @@
-// Codeforces GYM 102028H
+// CF GYM 102028H
 namespace sa {
 struct sfx {int idx, pos, posadd;} v[MAXN];
 int f[MAXLOG][MAXN], lk = 0;
